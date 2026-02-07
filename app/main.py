@@ -1,18 +1,11 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from app.core.config import settings
+from app.api import health, upload
 
-app = FastAPI(title="AI Document Search API")
+app = FastAPI(
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION
+)
 
-class HealthResponse(BaseModel):
-    status: str
-
-@app.get("/", response_model=HealthResponse)
-async def health_check():
-    return {"status": "ok"}
-
-@app.get("/hello/{name}")
-async def say_hello(name: str, age: int = 0):
-    return {
-        "message": f"Hello {name}",
-        "age": age
-    }
+app.include_router(health.router)
+app.include_router(upload.router)
