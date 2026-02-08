@@ -195,12 +195,6 @@ client = OpenAI(
 
 ---
 
-## 🧾 Resume Description
-
-> Built an AI-powered document search and Q&A system using FastAPI and Retrieval-Augmented Generation (RAG). Implemented semantic search with embeddings and cosine similarity, and integrated Hugging Face LLMs (Qwen) via OpenAI-compatible APIs to generate context-aware answers from enterprise documents.
-
----
-
 ## 🚀 Future Enhancements
 
 * 🔹 FAISS / Vector DB integration
@@ -217,5 +211,3 @@ client = OpenAI(
 Software Developer | Backend & AI Enthusiast
 
 ---
-
-Just say the word 🚀
