@@ -9,7 +9,7 @@ def get_all_chunks(db: Session):
     embeddings = []
 
     for r in records:
-        chunks.append(r.chunk_text)
-        embeddings.append(json.loads(r.embedding))
+        chunks.append(r.content)
+        embeddings.append(r.embedding)
 
     return records, chunks, embeddings

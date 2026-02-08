@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.db.session import get_db
+from app.core.database import get_db
 from app.schemas.search import SearchRequest, SearchResult
 from app.services.search_service import semantic_search
 

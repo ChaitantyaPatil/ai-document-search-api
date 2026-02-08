@@ -20,7 +20,7 @@ def semantic_search(db, query: str, top_k: int = 5):
             "document_id": record.document_id,
             "chunk_id": record.id,
             "score": score,
-            "text": record.chunk_text
+            "text": record.content
         })
 
     return results

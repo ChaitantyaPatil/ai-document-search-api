@@ -1,32 +1,28 @@
 import requests
-from app.core.config import HF_API_TOKEN, HF_MODEL_NAME
+from app.core.config import settings
+from openai import OpenAI
 
-HF_API_URL = f"https://api-inference.huggingface.co/models/{HF_MODEL_NAME}"
 
-HEADERS = {
-    "Authorization": f"Bearer {HF_API_TOKEN}"
-}
+client = OpenAI(
+    base_url="https://router.huggingface.co/v1",
+    api_key=settings.HF_API_TOKEN,
+)
 
 def generate_answer(prompt: str) -> str:
-    payload = {
-        "inputs": prompt,
-        "parameters": {
-            "max_new_tokens": 200,
-            "temperature": 0.3
-        }
-    }
-
-    response = requests.post(
-        HF_API_URL,
-        headers=HEADERS,
-        json=payload,
-        timeout=60
+    completion = client.chat.completions.create(
+        model=settings.HF_MODEL_NAME,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful AI assistant. Answer using only the provided context."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.3,
+        max_tokens=300,
     )
 
-    if response.status_code != 200:
-        raise Exception(f"HF API Error: {response.text}")
-
-    result = response.json()
-
-    # flan-t5 returns generated_text
-    return result[0]["generated_text"]
+    return completion.choices[0].message.content
