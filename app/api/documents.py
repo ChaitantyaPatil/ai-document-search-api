@@ -45,3 +45,14 @@ def get_document_chunks(doc_id: int, db: Session = Depends(get_db)):
         "total_chunks": len(chunks),
         "sample_chunk": chunks[0].content[:500] if chunks else None
     }
+
+@router.get("/{doc_id}/embeddings")
+def inspect_embeddings(doc_id: int, db: Session = Depends(get_db)):
+    chunk = db.query(DocumentChunk).filter(
+        DocumentChunk.document_id == doc_id
+    ).first()
+
+    return {
+        "embedding_length": len(chunk.embedding) if chunk else 0,
+        "sample_values": chunk.embedding[:5] if chunk else None
+    }
