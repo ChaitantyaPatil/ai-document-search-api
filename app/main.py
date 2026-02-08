@@ -3,6 +3,8 @@ from app.core.config import settings
 from app.api import health, upload
 from app.core.init_db import init_db
 from app.api import health, upload, documents
+from app.api.search import router as search_router
+
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -16,4 +18,5 @@ def on_startup():
 app.include_router(health.router)
 app.include_router(upload.router)
 app.include_router(documents.router)
+app.include_router(search_router)
 
