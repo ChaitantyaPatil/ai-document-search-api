@@ -53,29 +53,42 @@ Final Answer + Sources
 ```
 app/
 ├── api/
-│   ├── search.py        # Semantic search endpoint
-│   ├── ask.py           # RAG-based Q&A endpoint
+|   |
+│   ├── ask.py        # RAG-based Q&A endpoint
+│   ├── documents.py
+│   ├── health.py        
+│   ├── search.py     # Semantic search endpoint
+│   ├── upload.py                
 │
 ├── core/
+│   ├── constant.py
+│   ├── database.py
+│   ├── init_db.py
 │   └── config.py        # Environment configuration
 │
 ├── models/
+│   ├── document.py
 │   └── document_chunk.py
 │
 ├── repositories/
 │   └── chunk_repository.py
 │
+├── schemas/
+│   └── search.py
+|
 ├── services/
+│   ├── document_processor.py
 │   ├── embedding_service.py
+│   ├── file_service.py
+│   ├── text_extractor.py
 │   ├── search_service.py
 │   └── llm_service.py
 │
 ├── utils/
 │   ├── similarity.py
+│   ├── text_chunker.py
 │   └── prompt_builder.py
 │
-├── db/
-│   └── session.py
 │
 └── main.py
 ```
