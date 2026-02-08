@@ -4,8 +4,7 @@ from app.api import health, upload
 from app.core.init_db import init_db
 from app.api import health, upload, documents
 from app.api.search import router as search_router
-
-
+from app.api import ask
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION
@@ -19,4 +18,5 @@ app.include_router(health.router)
 app.include_router(upload.router)
 app.include_router(documents.router)
 app.include_router(search_router)
+app.include_router(ask.router)
 

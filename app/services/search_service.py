@@ -1,12 +1,10 @@
 from app.services.embedding_service import generate_embedding
 from app.utils.similarity import find_similar_chunks
+from app.repositories.chunk_repository import get_all_chunks
 
-def semantic_search(
-    query: str,
-    chunks: list,
-    embeddings: list,
-    top_k: int = 5
-):
+def semantic_search(db, query: str, top_k: int = 5):
+    records, chunks, embeddings = get_all_chunks(db)
+
     query_embedding = generate_embedding(query)
 
     matches = find_similar_chunks(
@@ -17,10 +15,12 @@ def semantic_search(
 
     results = []
     for idx, score in matches:
+        record = records[idx]
         results.append({
-            "chunk_id": idx,
+            "document_id": record.document_id,
+            "chunk_id": record.id,
             "score": score,
-            "text": chunks[idx]
+            "text": record.chunk_text
         })
 
     return results
